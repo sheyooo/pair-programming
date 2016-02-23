@@ -7,4 +7,5 @@ gem 'sinatra-contrib'
 gem 'sinatra-content-for'
 gem 'sinatra-namespace'
 gem 'erubis'
+gem 'rspec'
 gem 'codeclimate-test-reporter', group: :test, require: nil
