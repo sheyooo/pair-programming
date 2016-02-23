@@ -1,4 +1,4 @@
-require "spec_helper"
+#require "spec_helper"
 
 RSpec.describe "Placeholder" do 
   it "hi" do 
