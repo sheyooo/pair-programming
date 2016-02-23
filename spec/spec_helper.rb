@@ -1,6 +1,6 @@
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.configure do |config|
-  config.path_prefix = "lib" #the root of your Rails application relative to the repository root
+  config.path_prefix = "spec" #the root of your Rails application relative to the repository root
   #config.git_dir = `https://github.com/sheyooo/andela-project.git` #the relative or absolute location of your git root compared to where your tests are run
   config.git_dir = `git rev-parse --show-toplevel`.strip
 end
