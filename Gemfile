@@ -14,3 +14,5 @@ gem 'sinatra-namespace'
 gem 'erubis'
 gem 'firebase'
 gem 'git-version-bump'
+gem 'coveralls', require: false
+gem 'rake'
