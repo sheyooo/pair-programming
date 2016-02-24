@@ -4,6 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>PAIrPRO</title>
+  <base href="/"></base>
   <!-- Firebase -->
   <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
 
@@ -14,6 +15,7 @@
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
   <link href="css/materialize.min.css" rel="stylesheet"/>
   <link href="css/style.css" rel="stylesheet" />
   <!-- Firepad -->
@@ -29,17 +31,18 @@
     <div class="navbar-fixed">
       <nav>
           <div class="nav-wrapper blue lighten-2">
-            <a href="#!" class="brand-logo center">PAIrPRO</a>
+            <a href="/" class="brand-logo center">PAIrPRO</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
               <li><a href="/">Home</a></li>
               <li><a href="/login">Login</a></li>
               <li><a href="/signup">Signup</a></li>
+              <li><a href="/logout">Logout</a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
               <li><a href="/">Home</a></li>
               <li><a href="/login">Login</a></li>
-              <li><a href="/signup.html">Signup</a></li>
+              <li><a href="/signup">Signup</a></li>
             </ul>
           </div>
         </nav>    
@@ -47,12 +50,13 @@
 
   </header>
 
-  <div class="container">
-
-    <%= "<h1> #{flash[:error]} </h1>" %>
+  <div class="container p5">
+    
 
     <div class="row">
-        <%= yield %>
+      <%= styled_flash %>
+
+      <%= yield %>
     </div>
 
   </div>
@@ -69,6 +73,7 @@
 
   <!--  Scripts-->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/Materialize/dist/js/materialize.min.js"></script>
   <script src="js/init.js"></script>
 

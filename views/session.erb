@@ -1,0 +1,32 @@
+    <div class="col s0 m3 hde-on-med-and-down">
+      <%= render "layout.erb", :sidebar %>
+    </div>
+    <div class="col s12 m9">
+      <div class="row">
+        <div class="col s12" >
+          <div id="firepad-container" style="height: 100%"></div>
+
+          <script>
+            function init() {
+              //// Initialize Firebase.
+              // TODO: Replace above line with:
+               var firepadRef = new Firebase('https://pair-pro.firebaseio.com/sessions/<%= @id %>');
+              //// Create CodeMirror (with line numbers and the JavaScript mode).
+              var codeMirror = CodeMirror(document.getElementById('firepad-container'), {
+                lineNumbers: true,
+                mode: 'javascript'
+              });
+              //// Create Firepad.
+              var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
+                defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'
+              });
+            }
+            init();
+          </script>
+        </div>
+      </div>
+
+    </div>
+  
+  
+  
