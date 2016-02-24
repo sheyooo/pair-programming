@@ -1,9 +1,11 @@
 require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
+
 CodeClimate::TestReporter.configure do |config|
+  config.path_prefix = "pair-pro"
   config.git_dir = '.' # the relative or absolute location of your git root compared to where your tests are run
 end
 
-CodeClimate::TestReporter.start
 
 ENV['CODECLIMATE_REPO_TOKEN'] = '9fc0c3c80e72623c08e77e9f621c6572ae717a12a6fc9f579c3092bb6c26b6e5'
 
