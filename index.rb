@@ -5,6 +5,7 @@ require 'sinatra/base'
 require 'sinatra/flash'
 require 'firebase'
 require 'json'
+require 'uri'
 require './lib/pairpro/pair_pro'
 require 'sinatra/reloader' if development?
 
@@ -37,11 +38,15 @@ class App < Sinatra::Base
   end
 
   get '/' do
-    erb :index, layout: :layout
+    @list_co_sessions = []
+    if !list_sessions(session[:username]).nil?
+      @list_co_sessions = list_sessions(session[:username])
+    end
+    erb :index, :layout => :layout
   end
 
   get '/login' do
-    erb :login, layout: :layout
+    erb :login, :layout => :layout
   end
 
   post '/login' do
@@ -49,13 +54,13 @@ class App < Sinatra::Base
       session[:username] = params['username']
       redirect to('/')
     else
-      flash[:error] = 'Wrong username or password!'
+      flash["alert alert-error"] = 'Wrong username or password!'
       redirect to('/login')
     end
   end
 
   get '/signup' do
-    erb :signup, layout: :layout
+    erb :signup, :layout => :layout
   end
 
   post '/signup' do
@@ -69,17 +74,43 @@ class App < Sinatra::Base
         session[:username] = params['username']
         redirect to('/')
       else
-        flash[:error] = 'We have that account| Try another username'
+        flash["alert alert-error"] = 'We have that account| Try another username'
         redirect to('/login')
       end
     else
-      flash[:error] = 'Please fill in all fields!'
+      flash["alert alert-error"] = 'Please fill in all fields!'
       redirect to('/login')
     end
   end
 
+  get '/session/:id' do
+    @id = params["id"]
+    erb :session, :layout => :layout
+  end
+
   get '/sessions' do
-    erb :sessions, layout: :layout
+    erb :sessions, :layout => :layout
+  end
+
+  get '/new_session' do
+    erb :new_session, :layout => :layout
+  end
+
+  post '/new_session' do
+    params["id"] = URI.escape(params["id"])
+    if new_coding_session(params["id"])
+      @firebase.push("users/#{session[:username]}/sessions", {session_id: params['id']})
+      redirect to "/session/#{params['id']}"
+    else
+      flash["alert alert-danger"] = "Conflict try another ID"
+      redirect to "/new_session"
+    end
+  end
+
+  get '/delete_session/:id' do
+    params["id"] = URI.escape(params["id"])
+    delete_session(params["id"])
+    redirect to "/"
   end
 
   get '/logout' do
@@ -102,4 +133,31 @@ class App < Sinatra::Base
 
     auth
   end
+
+  def new_coding_session(id)
+    response = @firebase.get("/sessions/#{id}")
+    res = response.body
+
+    if res == nil
+      true
+    else
+      false
+    end    
+  end
+
+  def coding_session(id)
+
+  end
+
+  def list_sessions(username)
+    response = @firebase.get("users/#{username}/sessions")
+    res = response.body
+  end
+
+  def delete_session(id)
+    @firebase.delete("/sessions/#{id}/")
+    @firebase.delete("/users/#{session['username']}/#{id}/sessions")
+  end
+
+
 end
