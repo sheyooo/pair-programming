@@ -2,7 +2,7 @@ require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
 CodeClimate::TestReporter.configure do |config|
-  config.path_prefix = "spec"
+  config.path_prefix = "/"
   config.git_dir = '.' # the relative or absolute location of your git root compared to where your tests are run
 end
 
