@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>PAIrPRO</title>
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+
+  <!-- CodeMirror and its JavaScript mode file -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.2.0/codemirror.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.2.0/mode/javascript/javascript.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.2.0/codemirror.css" />
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.min.css" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- Firepad -->
+  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.3.0/firepad.css" />
+  <script src="https://cdn.firebase.com/libs/firepad/1.3.0/firepad.min.js"></script>
+
+  <link rel="stylesheet" href="css/code-mirror-theme.css" />
+
+</head>
+<body>
+  <header>
+
+    <div class="navbar-fixed">
+      <nav>
+          <div class="nav-wrapper blue lighten-2">
+            <a href="#!" class="brand-logo center">PAIrPRO</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="/">Home</a></li>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/signup">Signup</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+              <li><a href="/">Home</a></li>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/signup.html">Signup</a></li>
+            </ul>
+          </div>
+        </nav>    
+      </div>
+
+  </header>
+
+  <div class="container">
+
+    <%= "<h1> #{flash[:error]} </h1>" %>
+
+    <div class="row">
+        <%= yield %>
+    </div>
+
+  </div>
+
+  <footer class="page-footer blue lighten-2" style="display: none">
+    <div class="footer-copyright blue lighten-2">
+      <div class="container blue lighten-2">
+      Made by <a class="white-text text-lighten-3" href="https://github.com/sheyooo">Sheyi</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <!--  Scripts-->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/Materialize/dist/js/materialize.min.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>
