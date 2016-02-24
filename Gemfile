@@ -5,7 +5,7 @@ gem 'codeclimate-test-reporter', group: :test
 gem 'rspec'
 gem 'rubocop', require: false
 gem 'rack'
-gem 'rack-contrib'gem 'git-version-bump'
+gem 'rack-contrib'
 gem 'sinatra'
 gem 'sinatra-reloader'
 gem 'sinatra-contrib'
