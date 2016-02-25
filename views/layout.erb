@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="css/code-mirror-theme.css" />
 
 </head>
-<body>
+<body username="<%= session[:username] %>">
   <header>
 
     <div class="navbar-fixed">
@@ -59,7 +59,7 @@
 
   </header>
 
-  <div class="container p5">
+  <div class="row">
     
 
     <div class="row">
@@ -85,6 +85,8 @@
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/Materialize/dist/js/materialize.min.js"></script>
   <script src="js/init.js"></script>
+  <script src="js/chat.js"></script>
+
 
   </body>
 </html>

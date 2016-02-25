@@ -32,6 +32,7 @@ class App < Sinatra::Base
   before do
     base_uri = 'https://pair-pro.firebaseio.com/'
     @firebase = Firebase::Client.new(base_uri)
+    @url_base = "http://localhost:9292/"
   end
 
   before '/' do
