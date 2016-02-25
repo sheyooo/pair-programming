@@ -6,8 +6,8 @@ require 'firebase'
 module PairPro
   class PairProgram
 
-    def initialize
-      base_uri = 'https://pair-pro.firebaseio.com/'
+    def initialize (base_uri = 'https://pair-pro.firebaseio.com/')
+      #base_uri = 'https://pair-pro.firebaseio.com/'
       @firebase = Firebase::Client.new(base_uri)
     end
 
@@ -61,10 +61,6 @@ module PairPro
       else
         false
       end    
-    end
-
-    def coding_session(id)
-
     end
 
     def list_sessions(username)
