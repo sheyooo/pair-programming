@@ -14,7 +14,12 @@
 }
 
 html { height: 100%; }
-body { margin: 0; height: 100%; position: relative; }
+body { 
+  margin: 0;
+  height: 100%;
+  position: relative;
+  background: #efefef;
+    }
 /* Height / width / positioning can be customized for your use case.
    For demo purposes, we make firepad fill the entire browser. */
 #firepad-container {
@@ -25,4 +30,13 @@ body { margin: 0; height: 100%; position: relative; }
 
 .firepad {
   height: 600px !important;
+}
+
+.label-live {
+  color: #0f0;
+  border-radius: 50%;
+}
+
+.new::after {
+  content: "" !important;
 }

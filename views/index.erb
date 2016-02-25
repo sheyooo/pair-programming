@@ -18,6 +18,20 @@
         </div>
         <% end %>
 
+        <% if @list_co_sessions.length < 1 %>
+        <div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">No coding sessions yet!</span>
+              <p>No sessions yet</p>
+            </div>
+            <div class="card-action">
+              <a href="/new_session">Create a session</a>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
 
       </div>
 

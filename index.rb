@@ -122,13 +122,11 @@ class App < Sinatra::Base
     auth = false
     if (valid? u) && (valid? p)
       response = @firebase.get("users/#{params['username']}")
-      puts res = response.body
+      print res = response.body.to_a[0]
 
-      res.each do |_k, v|
-        return false if v['password'].nil?
-
-        auth = true if v['password'] == params['password']
-      end
+      if res[1].to_h["password"] == params["password"]
+        auth = true
+      end      
     end
 
     auth
@@ -156,7 +154,7 @@ class App < Sinatra::Base
 
   def delete_session(id)
     @firebase.delete("/sessions/#{id}/")
-    @firebase.delete("/users/#{session['username']}/#{id}/sessions")
+    @firebase.delete("/users/#{session['username']}/sessions/", {session_id: "#{id}"})
   end
 
 
