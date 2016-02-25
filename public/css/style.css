@@ -123,3 +123,18 @@ body {
 .alert-error .alert-link {
   color: #843534;
 }
+
+.login-card {
+  margin-top: 60px;
+}
+
+.signup-card {
+  margin-top: 60px;
+}
+
+footer {
+  z-index: 9;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}

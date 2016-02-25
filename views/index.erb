@@ -4,7 +4,7 @@
     <div class="col s12 m9">
       <div class="row">
         <% @list_co_sessions.each do |i| %>
-        <div class="col s12 m6">
+        <div class="col s12 m6 animated flipInX">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
               <span class="card-title">Coding session - <b><%= i[1]["session_id"] %></b></span>
@@ -20,7 +20,7 @@
         <% end %>
 
         <% if @list_co_sessions.length < 1 %>
-        <div class="col s12 m6">
+        <div class="col s12 m6 animated flipInX">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
               <span class="card-title">No coding sessions yet!</span>
