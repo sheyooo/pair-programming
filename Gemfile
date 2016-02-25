@@ -16,4 +16,4 @@ gem 'firebase'
 gem 'git-version-bump'
 gem 'coveralls', require: false
 gem 'rake'
-gem 'bundler' 
+gem 'bundler'

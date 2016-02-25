@@ -6,8 +6,7 @@ require 'firebase'
 module PairPro
   class PairProgram
 
-    def initialize
-      base_uri = 'https://pair-pro.firebaseio.com/'
+    def initialize (base_uri = 'https://pair-pro.firebaseio.com/')
       @firebase = Firebase::Client.new(base_uri)
     end
 
@@ -52,19 +51,15 @@ module PairPro
     end
 
     def new_coding_session(id, initiator)
-      response = @firebase.get("/sessions/#{id}")
+      response = @firebase.get("sessions/#{id}")
       res = response.body
 
       if res == nil
-        @firebase.push("users/#{initiator}/sessions", {session_id: id})
+        @firebase.push("users/#{initiator}/sessions/#{id}", session_id: id)
         true
       else
         false
       end    
-    end
-
-    def coding_session(id)
-
     end
 
     def list_sessions(username)
@@ -73,8 +68,8 @@ module PairPro
     end
 
     def delete_session(id, username)
-      @firebase.delete("/sessions/#{id}/")
-      @firebase.delete("/users/#{username}/sessions/", {session_id: "#{id}"})
+      @firebase.delete("sessions/#{id}/")
+      @firebase.delete("users/#{username}/sessions/#{id}")
     end
 
 
