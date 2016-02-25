@@ -1,25 +1,26 @@
-<div class="col s0 m3 hide-on-med-and-down">
-    <%= render "layout.erb", :sidebar %>
-</div>
-<div class="col s12 m9 l6">
-  <div style="margin: 0 auto">
-    <h3 class="white-text text-darken-3">Signup to Pair</h3>
-    <form method="post" action="signup">
-      <div class="form-group">
-        <label for="exampleInputEmail1">Username</label>
-        <input type="text" name="username" placeholder="Username">
-      </div>
+<div class="row">
+  <div class="col s12 m4 offset-l4 offset-m4">
+    <div class="card">
+      <div class="card-content">
+      <h5 class="center">Signup to Pair..</h5>
+        <form method="post" action="signup">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Username</label>
+            <input type="text" name="username" placeholder="Username">
+          </div>
 
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" name="email" placeholder="Email">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" name="email" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" name="password" placeholder="Password">
+          </div>
+          
+          <button type="submit" class="btn btn-default">Join</button>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" name="password" placeholder="Password">
-      </div>
-      
-      <button type="submit" class="btn btn-default">Join</button>
-    </form>
+    </div>
   </div>
 </div>

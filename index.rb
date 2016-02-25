@@ -1,3 +1,5 @@
+$LOAD_PATH << "."
+
 require 'rack'
 require 'sinatra'
 require 'sinatra/contrib'
@@ -7,7 +9,7 @@ require 'firebase'
 require 'json'
 require 'uri'
 require 'digest'
-require './lib/pairpro/pair_pro'
+require "lib/pairpro/pair_pro"
 require 'sinatra/reloader' if development?
 
 class App < Sinatra::Base
@@ -16,6 +18,7 @@ class App < Sinatra::Base
   end
 
   enable :sessions
+
   register Sinatra::Flash
 
   helpers do
@@ -30,19 +33,18 @@ class App < Sinatra::Base
   end
 
   before do
-    base_uri = 'https://pair-pro.firebaseio.com/'
-    @firebase = Firebase::Client.new(base_uri)
+    @app = PairPro::PairProgram.new
     @url_base = "http://localhost:9292/"
   end
 
-  before '/' do
+  before /\/$|\/new_session|\/sessions|\/session\/*/ do
     redirect to('/login') if session[:username].nil?
   end
 
   get '/' do
     @list_co_sessions = []
-    if !list_sessions(session[:username]).nil?
-      @list_co_sessions = list_sessions(session[:username])
+    if ! @app.list_sessions(session[:username]).nil?
+      @list_co_sessions = @app.list_sessions(session[:username])
     end
     erb :index, :layout => :layout
   end
@@ -52,7 +54,7 @@ class App < Sinatra::Base
   end
 
   post '/login' do
-    if login(params['username'], params['password'])
+    if @app.login(params['username'], params['password'])
       session[:username] = params['username']
       redirect to('/')
     else
@@ -68,7 +70,7 @@ class App < Sinatra::Base
   post '/signup' do
 
     if (valid? params['username']) && (valid? params['email']) && (valid? params['password'])
-      if signup(params['username'], params['email'], params['password'])
+      if @app.signup(params['username'], params['email'], params['password'])
         session[:username] = params['username']
         redirect to('/')
       else
@@ -96,8 +98,7 @@ class App < Sinatra::Base
 
   post '/new_session' do
     params["id"] = URI.escape(params["id"])
-    if new_coding_session(params["id"])
-      @firebase.push("users/#{session[:username]}/sessions", {session_id: params['id']})
+    if @app.new_coding_session(params["id"], session[:username])
       redirect to "/session/#{params['id']}"
     else
       flash["alert alert-danger"] = "Conflict try another ID"
@@ -107,7 +108,7 @@ class App < Sinatra::Base
 
   get '/delete_session/:id' do
     params["id"] = URI.escape(params["id"])
-    delete_session(params["id"])
+    @app.delete_session(params["id"], session[:username])
     redirect to "/"
   end
 
@@ -115,60 +116,5 @@ class App < Sinatra::Base
     session[:username] = nil
     redirect to('/')
   end
-
-
-  def signup(username, email, password)
-    response = @firebase.get("users/#{username}", shalow: true)
-    password = URI.escape(Digest::SHA256.digest(password))
-    if response.body.nil?
-      @firebase.push("users/#{username}", { :username => username, :email => email, :password => "#{password}"})
-      return true
-    else
-      return false
-    end
-  end
-
-  def login(u, p)
-    auth = false
-    p = Digest::SHA256.digest(p)
-    u = URI.escape(u)
-    if (valid? u) && (valid? p)
-      response = @firebase.get("users/#{u}")
-      res = response.body.to_a[0]
-      p = URI.escape(p)
-
-      if res[1].to_h["password"] == p
-        auth = true
-      end      
-    end
-
-    auth
-  end
-
-  def new_coding_session(id)
-    response = @firebase.get("/sessions/#{id}")
-    res = response.body
-
-    if res == nil
-      true
-    else
-      false
-    end    
-  end
-
-  def coding_session(id)
-
-  end
-
-  def list_sessions(username)
-    response = @firebase.get("users/#{username}/sessions")
-    res = response.body
-  end
-
-  def delete_session(id)
-    @firebase.delete("/sessions/#{id}/")
-    @firebase.delete("/users/#{session['username']}/sessions/", {session_id: "#{id}"})
-  end
-
 
 end
