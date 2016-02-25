@@ -58,9 +58,10 @@ class App < Sinatra::Base
   post '/login' do
     if @app.login(params['username'], params['password'])
       session[:username] = params['username']
+      flash.next['alert alert-success animated flash'] = "Welcome #{session[:username]}, you are wise!"
       redirect to('/')
     else
-      flash['alert alert-error'] = 'Wrong username or password!'
+      flash['alert alert-error animated flash'] = 'Wrong username or password!'
       redirect to('/login')
     end
   end
@@ -73,13 +74,14 @@ class App < Sinatra::Base
     if (valid? params['username']) && (valid? params['email']) && (valid? params['password'])
       if @app.signup(params['username'], params['email'], params['password'])
         session[:username] = params['username']
+        flash.next['alert alert-success animated flash'] = "Welcome #{session[:username]}, you are wise!"
         redirect to('/')
       else
-        flash['alert alert-error'] = 'We have that account| Try another username'
+        flash['alert alert-error animated flash'] = 'We have that account| Try another username'
         redirect to('/login')
       end
     else
-      flash['alert alert-error'] = 'Please fill in all fields!'
+      flash['alert alert-error animated flash'] = 'Please fill in all fields!'
       redirect to('/login')
     end
   end
@@ -100,9 +102,11 @@ class App < Sinatra::Base
   post '/new_session' do
     params['id'] = URI.escape(params['id'])
     if @app.new_coding_session(params['id'], session[:username])
+      text = "You have just created a new session, to pair up, just share this urls <a href='#{@url_base}session/#{params['id']}'></a>"
+      flash.next['alert alert-success animated flash'] = text
       redirect to "/session/#{params['id']}"
     else
-      flash['alert alert-error'] = 'Conflict try another ID'
+      flash['alert alert-error animated flash'] = 'Conflict try another ID'
       redirect to '/new_session'
     end
   end
@@ -114,6 +118,7 @@ class App < Sinatra::Base
   end
 
   get '/logout' do
+    flash.next['alert alert-warning animated flash'] = "Bye, #{session[:username]}, hope to see you again!."
     session[:username] = nil
     redirect to('/')
   end

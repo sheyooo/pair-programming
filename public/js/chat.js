@@ -9,7 +9,7 @@ $(document).ready(function($) {
     fire.child("/messages").on('child_added', function(child, prev){
         console.log(child.val())
         d = child.val()
-        $("#messagesContainer").append('<p><b>'+d.username+'</b>: '+d.text+''+
+        $("#messagesContainer").append('<p class="animated bounceIn"><b>'+d.username+'</b>: '+d.text+''+
           '<i class="material-icons tick-messages">done_all</i></p>')
     });
 
