@@ -24,6 +24,7 @@ GEM
     parser (2.3.0.6)
       ast (~> 2.2)
     powerpack (0.1.1)
+    puma (2.16.0)
     rack (1.6.4)
     rack-contrib (1.4.0)
       git-version-bump (~> 0.15)
@@ -92,6 +93,7 @@ DEPENDENCIES
   erubis
   firebase
   git-version-bump
+  puma
   rack
   rack-contrib
   rake

@@ -1,5 +1,7 @@
 # A sample Gemfile
 source 'https://rubygems.org'
+ruby '2.2.4'
+
 gem 'codeclimate-test-reporter', group: :test
 gem 'rspec'
 gem 'rubocop', require: false
