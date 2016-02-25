@@ -17,7 +17,7 @@ class App < Sinatra::Base
     register Sinatra::Reloader
   end
 
-  set :port, 80
+  #set :port, 80
 
   enable :sessions
 
