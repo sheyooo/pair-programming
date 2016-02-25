@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.2.4'
-
+gem 'bundler' 
 gem 'codeclimate-test-reporter', group: :test
 gem 'rspec'
 gem 'rubocop', require: false
@@ -17,4 +17,3 @@ gem 'firebase'
 gem 'git-version-bump'
 gem 'coveralls', require: false
 gem 'rake'
-gem 'bundler' 
