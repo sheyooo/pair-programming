@@ -6,6 +6,7 @@ require 'sinatra/flash'
 require 'firebase'
 require 'json'
 require 'uri'
+require 'digest'
 require './lib/pairpro/pair_pro'
 require 'sinatra/reloader' if development?
 
@@ -64,13 +65,9 @@ class App < Sinatra::Base
   end
 
   post '/signup' do
+
     if (valid? params['username']) && (valid? params['email']) && (valid? params['password'])
-      response = @firebase.get("users/#{params['username']}", shalow: true)
-      puts response.body
-      if response.body.nil?
-        @firebase.push("users/#{params['username']}", username: params['username'],
-                                                      email: params['email'],
-                                                      password: params['password'])
+      if signup(params['username'], params['email'], params['password'])
         session[:username] = params['username']
         redirect to('/')
       else
@@ -118,13 +115,28 @@ class App < Sinatra::Base
     redirect to('/')
   end
 
+
+  def signup(username, email, password)
+    response = @firebase.get("users/#{username}", shalow: true)
+    password = URI.escape(Digest::SHA256.digest(password))
+    if response.body.nil?
+      @firebase.push("users/#{username}", { :username => username, :email => email, :password => "#{password}"})
+      return true
+    else
+      return false
+    end
+  end
+
   def login(u, p)
     auth = false
+    p = Digest::SHA256.digest(p)
+    u = URI.escape(u)
     if (valid? u) && (valid? p)
-      response = @firebase.get("users/#{params['username']}")
-      print res = response.body.to_a[0]
+      response = @firebase.get("users/#{u}")
+      res = response.body.to_a[0]
+      p = URI.escape(p)
 
-      if res[1].to_h["password"] == params["password"]
+      if res[1].to_h["password"] == p
         auth = true
       end      
     end
