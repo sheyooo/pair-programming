@@ -1,4 +1,4 @@
-$LOAD_PATH << "."
+$LOAD_PATH << '.'
 
 require 'rack'
 require 'sinatra'
@@ -9,7 +9,7 @@ require 'firebase'
 require 'json'
 require 'uri'
 require 'digest'
-require "lib/pairpro/pair_pro"
+require 'lib/pairpro/pair_pro'
 require 'sinatra/reloader' if development?
 
 class App < Sinatra::Base
@@ -17,7 +17,7 @@ class App < Sinatra::Base
     register Sinatra::Reloader
   end
 
-  #set :port, 80
+  # set :port, 80
 
   enable :sessions
 
@@ -36,7 +36,7 @@ class App < Sinatra::Base
 
   before do
     @app = PairPro::PairProgram.new
-    @url_base = "http://localhost:9292/"
+    @url_base = 'http://localhost:9292/'
   end
 
   before /\/$|\/new_session|\/sessions|\/session\/*/ do
@@ -45,14 +45,14 @@ class App < Sinatra::Base
 
   get '/' do
     @list_co_sessions = []
-    if ! @app.list_sessions(session[:username]).nil?
+    unless @app.list_sessions(session[:username]).nil?
       @list_co_sessions = @app.list_sessions(session[:username])
     end
-    erb :index, :layout => :layout
+    erb :index, layout: :layout
   end
 
   get '/login' do
-    erb :login, :layout => :layout
+    erb :login, layout: :layout
   end
 
   post '/login' do
@@ -60,58 +60,57 @@ class App < Sinatra::Base
       session[:username] = params['username']
       redirect to('/')
     else
-      flash["alert alert-error"] = 'Wrong username or password!'
+      flash['alert alert-error'] = 'Wrong username or password!'
       redirect to('/login')
     end
   end
 
   get '/signup' do
-    erb :signup, :layout => :layout
+    erb :signup, layout: :layout
   end
 
   post '/signup' do
-
     if (valid? params['username']) && (valid? params['email']) && (valid? params['password'])
       if @app.signup(params['username'], params['email'], params['password'])
         session[:username] = params['username']
         redirect to('/')
       else
-        flash["alert alert-error"] = 'We have that account| Try another username'
+        flash['alert alert-error'] = 'We have that account| Try another username'
         redirect to('/login')
       end
     else
-      flash["alert alert-error"] = 'Please fill in all fields!'
+      flash['alert alert-error'] = 'Please fill in all fields!'
       redirect to('/login')
     end
   end
 
   get '/session/:id' do
-    @id = params["id"]
-    erb :session, :layout => :layout
+    @id = params['id']
+    erb :session, layout: :layout
   end
 
   get '/sessions' do
-    erb :sessions, :layout => :layout
+    erb :sessions, layout: :layout
   end
 
   get '/new_session' do
-    erb :new_session, :layout => :layout
+    erb :new_session, layout: :layout
   end
 
   post '/new_session' do
-    params["id"] = URI.escape(params["id"])
-    if @app.new_coding_session(params["id"], session[:username])
+    params['id'] = URI.escape(params['id'])
+    if @app.new_coding_session(params['id'], session[:username])
       redirect to "/session/#{params['id']}"
     else
-      flash["alert alert-danger"] = "Conflict try another ID"
-      redirect to "/new_session"
+      flash['alert alert-error'] = 'Conflict try another ID'
+      redirect to '/new_session'
     end
   end
 
   get '/delete_session/:id' do
-    params["id"] = URI.escape(params["id"])
-    @app.delete_session(params["id"], session[:username])
-    redirect to "/"
+    params['id'] = URI.escape(params['id'])
+    @app.delete_session(params['id'], session[:username])
+    redirect to '/'
   end
 
   get '/logout' do
@@ -119,6 +118,5 @@ class App < Sinatra::Base
     redirect to('/')
   end
 
-  #run! if app_file == $0
-
+  # run! if app_file == $0
 end
