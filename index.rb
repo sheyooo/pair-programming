@@ -12,7 +12,7 @@ require 'digest'
 require 'lib/pairpro/pair_pro'
 require 'sinatra/reloader' if development?
 
-class App < Sinatra::Base
+class App < Sinatra::Application
   configure :development do
     register Sinatra::Reloader
   end
