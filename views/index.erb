@@ -7,13 +7,13 @@
         <div class="col s12 m6 animated flipInX">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
-              <span class="card-title">Coding session - <b><%= i[1]["session_id"] %></b></span>
-              <p>Session: <b><%= i[1]["session_id"] %></b></p>
-              <p>To invite another person share this url with them <b><%= "#{@url_base}session/#{i[1]['session_id']}" %></b> </p>
+              <span class="card-title">Coding session - <b><%= i %></b></span>
+              <p>Session: <b><%= i %></b></p>
+              <p>To invite another person share this url with them <b><%= "#{@url_base}session/#{i}" %></b> </p>
             </div>
             <div class="card-action">
-              <a href="/session/<%= i[1]["session_id"] %>">Go to session</a>
-              <a href="/delete_session/<%= i[1]["session_id"] %>">Delete session</a>
+              <a href="/session/<%= i %>">Go to session</a>
+              <a href="/delete_session/<%= i %>">Delete session</a>
             </div>
           </div>
         </div>

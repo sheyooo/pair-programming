@@ -36,7 +36,7 @@ class App < Sinatra::Application
 
   before do
     @app = PairPro::PairProgram.new
-    @url_base = 'http://localhost:9292/'
+    @url_base = 'http://localhost:9292/'#DO NOT FORGET BEFORE PRESENTATION
   end
 
   before /\/$|\/new_session|\/sessions|\/session\/*/ do
@@ -45,8 +45,9 @@ class App < Sinatra::Application
 
   get '/' do
     @list_co_sessions = []
-    unless @app.list_sessions(session[:username]).nil?
-      @list_co_sessions = @app.list_sessions(session[:username])
+    list = @app.list_sessions(session[:username])
+    unless list.nil?
+      @list_co_sessions.push(list.keys[0])
     end
     erb :index, layout: :layout
   end
