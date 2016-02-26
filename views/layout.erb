@@ -58,16 +58,13 @@
         </nav>    
       </div>
 
-  </header>
+  </header>    
 
-    
+  <div class="row" style="padding-bottom: 70px">
+    <%= styled_flash %>
 
-    <div class="row" style="padding-bottom: 70px">
-      <%= styled_flash %>
-
-      <%= yield %>
-    </div>
-
+    <%= yield %>
+  </div>
 
   <footer class="page-footer blue lighten-2" style="">
     <div class="footer-copyright blue lighten-2">
@@ -85,7 +82,5 @@
   <script src="js/materialize.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/chat.js"></script>
-
-
   </body>
 </html>

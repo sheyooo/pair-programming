@@ -17,8 +17,6 @@ class App < Sinatra::Application
     register Sinatra::Reloader
   end
 
-  # set :port, 80
-
   enable :sessions
 
   register Sinatra::Flash
@@ -123,6 +121,4 @@ class App < Sinatra::Application
     session[:username] = nil
     redirect to('/')
   end
-
-  # run! if app_file == $0
 end

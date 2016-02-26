@@ -5,7 +5,6 @@ require 'firebase'
 
 module PairPro
   class PairProgram
-
     def initialize (base_uri = 'https://pair-pro.firebaseio.com/')
       @firebase = Firebase::Client.new(base_uri)
     end
@@ -71,8 +70,5 @@ module PairPro
       @firebase.delete("sessions/#{id}/")
       @firebase.delete("users/#{username}/sessions/#{id}")
     end
-
-
   end
-
 end
