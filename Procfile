@@ -1,1 +1,1 @@
-web: rackup -p 80
+web: rackup
