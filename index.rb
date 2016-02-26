@@ -34,7 +34,7 @@ class App < Sinatra::Application
 
   before do
     @app = PairPro::PairProgram.new
-    @url_base = 'http://localhost:9292/'#DO NOT FORGET BEFORE PRESENTATION
+    @url_base = "#{request.scheme}://#{request.host}/"#'http://localhost:9292/'#DO NOT FORGET BEFORE PRESENTATION
   end
 
   before /\/$|\/new_session|\/sessions|\/session\/*/ do
